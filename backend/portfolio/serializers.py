@@ -4,7 +4,7 @@ from .models import Project, Experience, Education, Skill, Milestone
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = ['id', 'title', 'description', 'technologies', 'link', 'image']
 
 class ExperienceSerializer(serializers.ModelSerializer):
     class Meta:
