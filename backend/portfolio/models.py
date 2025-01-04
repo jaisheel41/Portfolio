@@ -32,7 +32,6 @@ class Education(models.Model):
 
 class Skill(models.Model):
     name = models.CharField(max_length=50)
-    level = models.CharField(max_length=50)  # Beginner, Intermediate, Advanced
 
     def __str__(self):
         return self.name
