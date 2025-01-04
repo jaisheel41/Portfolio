@@ -8,7 +8,7 @@ router.register(r'projects', views.ProjectViewSet)
 router.register(r'experiences', views.ExperienceViewSet)
 router.register(r'educations', views.EducationViewSet)
 router.register(r'skills', views.SkillViewSet)
-router.register(r'milestones', views.MilestoneViewSet)
+router.register(r'certifications', views.CertificationViewSet)
 
 # The API URLs are now determined automatically by the router
 urlpatterns = [

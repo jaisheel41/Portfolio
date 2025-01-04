@@ -4,7 +4,8 @@ class Project(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     technologies = models.CharField(max_length=200)
-    link = models.URLField(blank=True, null=True)
+    Live_link = models.URLField(blank=True, null=True)
+    Github_link = models.URLField(blank=True, null=True)
     image = models.ImageField(upload_to='projects/', blank=True, null=True)
 
     def __str__(self):
@@ -36,10 +37,13 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
-class Milestone(models.Model):
+class Certification(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField()
-    date = models.DateField()
+    organization = models.CharField(max_length=100)
+    issue_date = models.DateField()
+    description = models.TextField(blank=True)
+    credential_url = models.URLField(blank=True, null=True)
+    logo = models.ImageField(upload_to='certifications/', blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return f"{self.title} by {self.organization}"
