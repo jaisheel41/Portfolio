@@ -32,8 +32,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # DEBUG = False
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['your-app-name.onrender.com']
+# ALLOWED_HOSTS = ['your-app-name.onrender.com']
 
+ALLOWED_HOSTS = ['your-backend-url.render.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -57,7 +58,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware', 
+    'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'portfolio_backend.urls'
