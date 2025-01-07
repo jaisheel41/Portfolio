@@ -34,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = ['your-app-name.onrender.com']
 
-ALLOWED_HOSTS = ['your-backend-url.render.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['https://portfolio-rvi8.onrender.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -141,6 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # settings.py
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',  # React frontend URL
+    "https://portfolio-rvi8.onrender.com",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
