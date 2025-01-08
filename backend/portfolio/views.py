@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from .models import Project, Experience, Education, Skill, Certification
 from .serializers import ProjectSerializer, ExperienceSerializer, EducationSerializer, SkillSerializer, CertificationSerializer
+from django.http import JsonResponse
 
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
@@ -21,3 +22,6 @@ class SkillViewSet(viewsets.ModelViewSet):
 class CertificationViewSet(viewsets.ModelViewSet):
     queryset = Certification.objects.all()
     serializer_class = CertificationSerializer
+
+def api_root(request):
+    return JsonResponse({"message": "Portfolio API Root"})
