@@ -34,7 +34,7 @@ DEBUG = False
 # ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = ['your-app-name.onrender.com']
 
-ALLOWED_HOSTS = ['portfolio-rvi8.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['jaisheel42.pythonanywhere.com','portfolio-rvi8.onrender.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -130,8 +130,8 @@ USE_TZ = True
 
 # STATIC_URL = 'static/'
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -145,5 +145,11 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'backend/projects/')
+
+STATIC_URL = '/static/'
+STATIC_ROOT = '/home/jaisheel42/mysite/static'
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'backend/projects/')
+MEDIA_ROOT = '/home/jaisheel42/mysite/media'
