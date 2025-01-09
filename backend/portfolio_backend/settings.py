@@ -149,7 +149,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'backend/projects/')
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/jaisheel42/mysite/static'
+STATIC_ROOT = '/home/jaisheel42/portfolio_project/staticfiles'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/jaisheel42/mysite/media'
+MEDIA_ROOT = '/home/jaisheel42/portfolio_project/media'
