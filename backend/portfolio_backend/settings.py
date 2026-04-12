@@ -186,5 +186,6 @@ if USE_SUPABASE_STORAGE:
             "BACKEND": "portfolio.storage.PublicSupabaseS3Storage",
         },
     }
-    SUPABASE_STORAGE_PUBLIC_BASE = config("SUPABASE_STORAGE_PUBLIC_BASE")
+    # Public object URL prefix (see Supabase Storage → bucket). Empty falls back to S3-style URLs.
+    SUPABASE_STORAGE_PUBLIC_BASE = config("SUPABASE_STORAGE_PUBLIC_BASE", default="")
     MEDIA_URL = config("SUPABASE_STORAGE_MEDIA_URL", default="/media/")
