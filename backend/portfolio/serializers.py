@@ -3,24 +3,23 @@ from django.conf import settings
 from .models import Certification, Education, Experience, Project, Skill
 
 
-def get_image_url(image_field):
-    if not image_field:
+def build_media_url(field_value):
+    if not field_value:
         return None
-    name = str(image_field)
+    name = str(field_value)
     if not name:
         return None
     base = getattr(settings, "SUPABASE_STORAGE_PUBLIC_BASE", "").rstrip("/")
     if base:
         return f"{base}/{name}"
-    # fallback for local dev
-    return image_field.url if hasattr(image_field, 'url') else None
+    return field_value.url if hasattr(field_value, "url") else None
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
+    image_url = serializers.SerializerMethodField()
 
-    def get_image(self, obj):
-        return get_image_url(obj.image)
+    def get_image_url(self, obj):
+        return build_media_url(obj.image)
 
     class Meta:
         model = Project
@@ -28,10 +27,10 @@ class ProjectSerializer(serializers.ModelSerializer):
 
 
 class CertificationSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
+    logo_url = serializers.SerializerMethodField()
 
-    def get_image(self, obj):
-        return get_image_url(obj.logo)
+    def get_logo_url(self, obj):
+        return build_media_url(obj.logo)
 
     class Meta:
         model = Certification
