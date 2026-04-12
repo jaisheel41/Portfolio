@@ -17,20 +17,13 @@ from urllib.parse import urlparse
 from decouple import config
 
 SECRET_KEY = config("SECRET_KEY")
+# Set DEBUG=False in production (e.g. Render env). Avoid True on the public internet.
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-w-bfnlv%ebihshqn^05=@j&1uumtnf*)8)6d1*7hyd5i^ogfke'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
 # Comma-separated in env, or rely on Render's RENDER_EXTERNAL_URL (see below).
 ALLOWED_HOSTS = [
@@ -102,6 +95,17 @@ WSGI_APPLICATION = "portfolio_backend.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+#
+# Supabase "direct" host (db.*.supabase.co:5432) often resolves to IPv6 only.
+# Render's build network may be IPv4-only → "Network is unreachable".
+# Fix: use Supabase *Transaction pooler* (Dashboard → Connect → Transaction pooler):
+#   host like aws-0-*.pooler.supabase.com, port 6543, user often postgres.PROJECT_REF
+# Or enable Supabase IPv4 add-on for the direct connection.
+
+_db_port = config("DB_PORT", default="5432")
+_use_supabase_pooler = (
+    config("DB_USE_SUPABASE_POOLER", default=False, cast=bool) or _db_port == "6543"
+)
 
 DATABASES = {
     "default": {
@@ -110,13 +114,21 @@ DATABASES = {
         "USER": config("DB_USER"),
         "PASSWORD": config("DB_PASSWORD"),
         "HOST": config("DB_HOST"),
-        "PORT": config("DB_PORT", default="5432"),
+        "PORT": _db_port,
         "OPTIONS": {
             "sslmode": "require",
         },
-        "CONN_MAX_AGE": config("DB_CONN_MAX_AGE", default=60, cast=int),
+        "CONN_MAX_AGE": (
+            0
+            if _use_supabase_pooler
+            else config("DB_CONN_MAX_AGE", default=60, cast=int)
+        ),
     }
 }
+
+if _use_supabase_pooler:
+    # Required for PgBouncer transaction pooling (Supabase pooler port 6543).
+    DATABASES["default"]["DISABLE_SERVER_SIDE_CURSORS"] = True
 
 
 # Password validation
