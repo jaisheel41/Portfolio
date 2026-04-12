@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+exclude = [
+    "**/migrations/**",
+    "**/venv/**",
+    ".venv",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "portfolio_backend.settings_test"
+python_files = ["test_*.py"]
+testpaths = ["portfolio/tests"]
+addopts = "-v --tb=short --strict-markers"
+
+[tool.mypy]
+python_version = "3.10"
+plugins = ["mypy_django_plugin.main"]
+strict_optional = true
+warn_return_any = false
+warn_unused_ignores = true
+ignore_missing_imports = true
+exclude = [
+    "venv/",
+    ".venv/",
+    "migrations/",
+]
+
+[[tool.mypy.overrides]]
+module = "decouple"
+ignore_missing_imports = true
+
+[tool.django-stubs]
+django_settings_module = "portfolio_backend.settings_test"
