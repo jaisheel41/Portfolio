@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
+from urllib.parse import urlparse
 
 from decouple import config
 
@@ -30,15 +32,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = ['your-app-name.onrender.com']
-
+# Comma-separated in env, or rely on Render's RENDER_EXTERNAL_URL (see below).
 ALLOWED_HOSTS = [
-    "jaisheel42.pythonanywhere.com",
-    "portfolio-rvi8.onrender.com",
-    "localhost",
-    "127.0.0.1",
+    h.strip()
+    for h in config(
+        "ALLOWED_HOSTS",
+        default="localhost,127.0.0.1,jaisheel42.pythonanywhere.com,portfolio-rvi8.onrender.com",
+    ).split(",")
+    if h.strip()
 ]
+
+# Render provides RENDER_EXTERNAL_URL; append that hostname for ALLOWED_HOSTS.
+_render_url = os.environ.get("RENDER_EXTERNAL_URL", "")
+if _render_url:
+    _render_host = urlparse(_render_url).hostname
+    if _render_host and _render_host not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(_render_host)
 
 # Application definition
 
