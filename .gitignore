@@ -6,6 +6,13 @@ frontend/build/
 __pycache__/
 *.py[cod]
 *.sqlite3
+backend/.pytest_cache/
+backend/.ruff_cache/
+backend/.mypy_cache/
+backend/test_staticfiles/
+backend/test_media/
+backend/venv/
+backend/.venv/
 
 # Environment files
 .env
