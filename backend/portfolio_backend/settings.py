@@ -211,6 +211,7 @@ if USE_SUPABASE_STORAGE:
             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
-    # Public object URL prefix (see Supabase Storage → bucket). Empty falls back to S3-style URLs.
+    # Must be the *public* object base, NOT the S3 API host (*.storage.supabase.co / .../s3/...).
+    # Example: https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/YOUR_BUCKET
     SUPABASE_STORAGE_PUBLIC_BASE = config("SUPABASE_STORAGE_PUBLIC_BASE", default="")
     MEDIA_URL = config("SUPABASE_STORAGE_MEDIA_URL", default="/media/")
