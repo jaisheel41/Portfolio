@@ -30,7 +30,7 @@ ALLOWED_HOSTS = [
     h.strip()
     for h in config(
         "ALLOWED_HOSTS",
-        default="localhost,127.0.0.1,jaisheel42.pythonanywhere.com,portfolio-rvi8.onrender.com",
+        default="localhost,127.0.0.1,jaisheel42.pythonanywhere.com,portfolio-csh9.onrender.com",
     ).split(",")
     if h.strip()
 ]
