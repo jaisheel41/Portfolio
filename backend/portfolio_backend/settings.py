@@ -185,6 +185,10 @@ if USE_SUPABASE_STORAGE:
         "default": {
             "BACKEND": "portfolio.storage.PublicSupabaseS3Storage",
         },
+        # Required when STORAGES is set (Django 5.1+). collectstatic uses local STATIC_ROOT.
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
     }
     # Public object URL prefix (see Supabase Storage → bucket). Empty falls back to S3-style URLs.
     SUPABASE_STORAGE_PUBLIC_BASE = config("SUPABASE_STORAGE_PUBLIC_BASE", default="")
