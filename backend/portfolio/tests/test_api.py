@@ -74,3 +74,9 @@ class SiteRootTests(APITestCase):
             response.json().get("message"),
             "Welcome to the Portfolio API",
         )
+
+    def test_ping_returns_ok(self):
+        response = self.client.get("/ping/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.json()["ok"])
+        self.assertEqual(response.json()["db"], "connected")

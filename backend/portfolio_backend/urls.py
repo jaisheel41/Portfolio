@@ -18,6 +18,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.db import connection
 from django.http import JsonResponse
 from django.urls import include, path
 
@@ -26,9 +27,17 @@ def root_view(request):
     return JsonResponse({"message": "Welcome to the Portfolio API"})
 
 
+def ping_view(request):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT 1")
+
+    return JsonResponse({"ok": True, "db": "connected"})
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("portfolio.urls")),
+    path("ping/", ping_view),
     path("", root_view),
 ]
 
